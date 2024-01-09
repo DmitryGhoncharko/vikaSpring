@@ -1,0 +1,29 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Главная страница</title>
+
+</head>
+<body>
+<div th:each="data:${data}">
+    <label for="title">Название</label>
+    <h1 th:text="${data.title}" id="title"></h1>
+    <br/>
+    <label for="year">Года выхода:</label>
+    <h1 th:text ="${data.year}" id="year"/>
+    <br/>
+    <label for="category">Категория:</label>
+    <h1 th:text ="${data.category.categoryName}" id="category"/>
+    <br/>
+    <label for="desc">Описание:</label>
+    <h1 th:text ="${data.description}" id="desc"/>
+    <br/>
+    <h1 th:text ="${data.year}" />
+    <br/>
+    <h1 th:text ="${data.year}" />
+    <br/>
+    <h1 th:text ="${data.year}" />
+    <br/>
+</div>
+<br>
+</body>
+</html>
