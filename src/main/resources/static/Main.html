@@ -5,23 +5,14 @@
 </head>
 <body>
 <div th:each="data:${data}">
-    <label for="title">Название</label>
-    <h1 th:text="${data.title}" id="title"></h1>
+    <label for="title">Name:</label>
+    <h1 th:text="${data.name}" id="title"></h1>
     <br/>
-    <label for="year">Года выхода:</label>
-    <h1 th:text ="${data.year}" id="year"/>
+    <label for="year">Price:</label>
+    <h1 th:text ="${data.price}" id="year"/>
     <br/>
-    <label for="category">Категория:</label>
-    <h1 th:text ="${data.category.categoryName}" id="category"/>
-    <br/>
-    <label for="desc">Описание:</label>
-    <h1 th:text ="${data.description}" id="desc"/>
-    <br/>
-    <h1 th:text ="${data.year}" />
-    <br/>
-    <h1 th:text ="${data.year}" />
-    <br/>
-    <h1 th:text ="${data.year}" />
+    <label for="category">Location:</label>
+    <h1 th:text ="${data.location}" id="category"/>
     <br/>
 </div>
 <br>

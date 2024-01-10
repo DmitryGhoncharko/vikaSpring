@@ -1,8 +1,7 @@
 package com.example.vikaspring.service;
 
-import com.example.vikaspring.model.Movie;
-import com.example.vikaspring.repository.CategoryRepository;
-import com.example.vikaspring.repository.MovieRepository;
+import com.example.vikaspring.model.Product;
+import com.example.vikaspring.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -10,10 +9,9 @@ import java.util.List;
 @org.springframework.stereotype.Service
 @RequiredArgsConstructor
 public class ViewService {
-    private final MovieRepository movieRepository;
+    private final ProductRepository productRepository;
 
-    public List<Movie> getAllMovies(){
-        return movieRepository.findAll();
+    public List<Product> getAllMovies(){
+        return productRepository.findAll();
     }
-
 }

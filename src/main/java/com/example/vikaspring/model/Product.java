@@ -1,34 +1,41 @@
 package com.example.vikaspring.model;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
+import java.util.List;
 import java.util.Objects;
 
-@Entity
-@Table(name = "account")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-public class Account {
+
+@Entity
+@Table(name = "Products")
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ProductID")
     private Integer id;
 
-    @Column(name = "login", nullable = false, unique = true)
-    private String login;
+    @Column(name = "ProductName")
+    private String name;
 
-    @Column(name = "password", nullable = false)
-    private String password;
+    @Column(name = "Price")
+    private double price;
 
     @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
+    @JoinColumn(name = "SupermarketID")
+    private Supermarket supermarket;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<SuppliedProduct> suppliedProducts;
+
+    // getters and setters
 
     @Override
     public final boolean equals(Object o) {
@@ -37,8 +44,8 @@ public class Account {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        Account account = (Account) o;
-        return getId() != null && Objects.equals(getId(), account.getId());
+        Product product = (Product) o;
+        return getId() != null && Objects.equals(getId(), product.getId());
     }
 
     @Override

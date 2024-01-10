@@ -1,6 +1,5 @@
 package com.example.vikaspring.model;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
@@ -8,21 +7,34 @@ import org.hibernate.proxy.HibernateProxy;
 import java.util.Objects;
 
 @Entity
-@Table(name = "category")
-@Getter
-@Setter
+@Table(name = "SuppliedProducts")
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @ToString
-public class Category {
+public class SuppliedProduct {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_id")
-    private Integer categoryId;
+    @Column(name = "SupplyID")
+    private Integer id;
 
-    @Column(name = "category_name", nullable = false)
-    private String categoryName;
+    @ManyToOne
+    @JoinColumn(name = "ProductID")
+    private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "SupplierID")
+    private Supplier supplier;
+
+    @Column(name = "Quantity")
+    private int quantity;
+
+    @Column(name = "SupplyDate")
+    private java.sql.Date supplyDate;
+
+    // getters and setters
 
     @Override
     public final boolean equals(Object o) {
@@ -31,8 +43,8 @@ public class Category {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        Category category = (Category) o;
-        return getCategoryId() != null && Objects.equals(getCategoryId(), category.getCategoryId());
+        SuppliedProduct that = (SuppliedProduct) o;
+        return getId() != null && Objects.equals(getId(), that.getId());
     }
 
     @Override
@@ -40,4 +52,3 @@ public class Category {
         return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
     }
 }
-

@@ -1,43 +1,33 @@
 package com.example.vikaspring.model;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
+import java.util.List;
 import java.util.Objects;
 
-@Entity
-@Table(name = "user_account")
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @ToString
-public class UserAccount {
+@Entity
+@Table(name = "Suppliers")
+public class Supplier {
 
     @Id
-    @Column(name = "user_id")
-    private Integer userId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "SupplierID")
+    private Integer id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    @MapsId
-    private Account account;
+    @Column(name = "SupplierName")
+    private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "status_id")
-    private Status status;
+    @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
+    private List<SuppliedProduct> suppliedProducts;
 
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
-
-    @Column(name = "last_name", nullable = false)
-    private String lastName;
-
-    @ManyToOne
-    @JoinColumn(name = "ban_status_id")
-    private BanStatus banStatus;
+    // getters and setters
 
     @Override
     public final boolean equals(Object o) {
@@ -46,8 +36,8 @@ public class UserAccount {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        UserAccount that = (UserAccount) o;
-        return getUserId() != null && Objects.equals(getUserId(), that.getUserId());
+        Supplier supplier = (Supplier) o;
+        return getId() != null && Objects.equals(getId(), supplier.getId());
     }
 
     @Override

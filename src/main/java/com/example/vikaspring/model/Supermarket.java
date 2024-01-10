@@ -4,36 +4,35 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
+import java.util.List;
 import java.util.Objects;
 
-@Entity
-@Table(name = "movie")
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-public class Movie {
+@Entity
+@Table(name = "Supermarkets")
+public class Supermarket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "SupermarketID")
     private Integer id;
 
-    @Column(name = "title", nullable = false)
-    private String title;
+    @Column(name = "SupermarketName")
+    private String name;
 
-    @Column(name = "year")
-    private Integer year;
+    @Column(name = "Location")
+    private String location;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @OneToMany(mappedBy = "supermarket", cascade = CascadeType.ALL)
+    private List<Product> products;
 
-    @Column(name = "description", columnDefinition = "TEXT")
-    private String description;
-
-    @Column(name = "deleted", columnDefinition = "TINYINT default 0")
-    private boolean deleted;
+    @OneToMany(mappedBy = "supermarket", cascade = CascadeType.ALL)
+    private List<Seller> sellers;
 
     @Override
     public final boolean equals(Object o) {
@@ -42,8 +41,8 @@ public class Movie {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        Movie movie = (Movie) o;
-        return getId() != null && Objects.equals(getId(), movie.getId());
+        Supermarket that = (Supermarket) o;
+        return getId() != null && Objects.equals(getId(), that.getId());
     }
 
     @Override

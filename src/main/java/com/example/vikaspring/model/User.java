@@ -1,27 +1,34 @@
 package com.example.vikaspring.model;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
 import java.util.Objects;
 
-@Entity
-@Table(name = "role")
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Getter
 @Setter
-public class Role {
+@ToString
+@Entity
+@Table(name = "Users")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "UserID")
     private Integer id;
 
-    @Column(name = "role_name", nullable = false)
-    private String roleName;
+    @Column(name = "Username")
+    private String username;
+
+    @Column(name = "Password")
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "Role")
+    private UserRole role;
 
     @Override
     public final boolean equals(Object o) {
@@ -30,13 +37,18 @@ public class Role {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        Role role = (Role) o;
-        return id != null && Objects.equals(id, role.id);
+        User user = (User) o;
+        return getId() != null && Objects.equals(getId(), user.getId());
     }
 
     @Override
     public final int hashCode() {
         return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
     }
-}
+    @ManyToOne
+    @JoinColumn(name = "SupermarketID")
+    private Supermarket supermarket;
 
+
+
+}
